@@ -1,69 +1,55 @@
-# Automação de Envio de E-mails com Anexo
+# Envio de E-mails com PDF
 
-Este projeto é uma aplicação simples desenvolvida em Python usando `tkinter` para a interface gráfica e `smtplib` para envio de e-mails. Ele permite que o usuário envie e-mails com um arquivo PDF anexado para vários destinatários.
+Aplicação desktop em Python para compor uma mensagem, selecionar um PDF opcional e enviar e-mails a vários destinatários pelo SMTP do Gmail. O envio é iniciado manualmente na interface.
 
-# Funcionalidades
+## Funcionalidades
 
-- Interface gráfica para facilitar o envio de e-mails.
-- Seleção de arquivos PDF para anexar aos e-mails.
-- Envio de e-mails para múltiplos destinatários separados por vírgula.
-- Campos para personalizar o e-mail: remetente, destinatários, assunto e mensagem.
+- Interface gráfica com Tkinter.
+- Campos de remetente, destinatários separados por vírgula, assunto e corpo.
+- Seleção de arquivo PDF em janela de arquivos.
+- Composição MIME e conexão SMTP com STARTTLS.
+- Notificações de sucesso ou erro na interface.
 
-# Requisitos
+## Tecnologias
 
-Certifique-se de ter o Python 3 instalado e as seguintes bibliotecas disponíveis:
+Python 3, Tkinter e módulos padrão smtplib e email.
 
-- `tkinter` (para interface gráfica)
-- `smtplib` (para envio de e-mails)
-- `email` (para formatação do e-mail)
+## Como executar
 
-Caso alguma biblioteca esteja ausente, ela pode ser instalada com o gerenciador de pacotes padrão do Python.
+Instale Python 3 com Tkinter disponível. Confira a interface gráfica:
 
-# Como Usar
+```sh
+python -m tkinter
+```
 
-1. Configurar Permissões no Gmail: Certifique-se de que sua conta do Gmail está configurada para permitir o uso de "Aplicativos menos seguros" ou tenha gerado uma senha de aplicativo.
+Clone o projeto e execute o arquivo existente:
 
+```sh
+git clone https://github.com/Felipegaldinos/automacao-de-email.git
+cd automacao-de-email
+python email.py
+```
 
-2. Executar o Código:
+Caso ocorra conflito de importação com o pacote padrão `email`, renomeie o script para `envio_email.py` e execute `python envio_email.py`. Isso é uma solução manual; o arquivo atual do repositório se chama `email.py`.
 
-Salve o código em um arquivo envio_email.py.
+O servidor está definido no código como `smtp.gmail.com`, porta 587, com STARTTLS. A implementação usa login por senha e não oferece OAuth. Para contas elegíveis, consulte as condições de verificação em duas etapas e senhas de app na [documentação oficial do Google](https://support.google.com/accounts/answer/185833?hl=pt-BR). Não use orientações antigas sobre ativar aplicativos menos seguros. `smtplib` e `email` fazem parte do Python; Tkinter depende da instalação do Python/sistema, não de um simples `pip install tkinter`.
 
-Execute o script com o comando:
+## Organização do código
 
-python envio_email.py
+- `email.py` — interface, seleção do PDF, composição da mensagem e envio SMTP.
 
+## Roteiro de demonstração
 
+Primeiro confira o Tkinter e o possível conflito do nome do arquivo. Para testar o envio, use uma conta de teste e um destinatário seu; clicar em Enviar E-mail realiza um envio real. Teste uma mensagem simples e depois um PDF pequeno.
 
-3. Preencher os Campos:
+## Limitações atuais
 
-Insira seu e-mail e senha.
+Não há agendamento de envios ou fila. A chamada SMTP ocorre na interface e pode bloquear a janela durante a conexão. Se a criação do objeto SMTP falhar, o bloco finally tenta executar servidor.quit() sem uma instância válida, causando um erro adicional. O nome email.py também coincide com o pacote padrão email e pode causar conflito de importação; renomear o arquivo é uma melhoria de código separada desta documentação.
 
-Adicione os destinatários separados por vírgula.
+## Competências demonstradas
 
-Escreva o assunto e o conteúdo do e-mail.
+Interface desktop, composição MIME, anexos e comunicação SMTP.
 
-Opcionalmente, selecione um PDF para anexar.
+## Autoria
 
-
-
-4. Enviar o E-mail:
-
-Clique em "Enviar E-mail".
-
-
-
-
-# Melhorias Futuras
-
-Suporte a outros tipos de anexos além de PDFs.
-
-Armazenar configurações de login para evitar entrada repetitiva.
-
-Validação de entradas para verificar se os campos obrigatórios estão preenchidos.
-
-Interface aprimorada com bibliotecas como PyQt ou Kivy.
-
-
-# Observação
-
-Certifique-se de que as permissões de envio pelo SMTP do Gmail estão habilitadas. Acesse a documentação oficial do Gmail para mais informações sobre configurações de segurança
+Projeto disponível no perfil de [Felipe Galdino](https://github.com/Felipegaldinos). Consulte os arquivos do repositório para verificar os termos de licença aplicáveis.
